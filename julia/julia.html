@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>julia</title>
+</head>
+<body>
+	<canvas id="canvas" width="1000" height="1000"></canvas>
+	<script type="text/javascript">
+		var creal = -.8;
+		var cimag = .156;
+		var canvas = document.getElementById('canvas');
+		var context = canvas.getContext('2d');
+		var frame = 0;
+		var pallete = [];
+
+		function julia() {
+			for(y = 0; y < 200; y++){
+				for(x = 0; x < 200; x++){
+					var cx = -2 + x / 50;
+					var cy = -2 + y / 50;
+					var i = 0;
+
+					do {
+						xt = cx*cx - cy*cy + creal;
+						cy = 2 * cx * cy + cimag;
+						cx = xt;
+						i++;
+
+					} while ((cx * cx + cy *cy < 4) && i < 25);
+
+					// i = i.toString(16);
+					context.beginPath();
+					context.rect(x*4, y*4,4, 4);
+					context.fillStyle = pallete[i]
+					// context.fillStyle = '#'+i+i+i;
+					context.fill();
+				}
+			}
+			frame++;
+
+			creal = -.8 +1 * Math.sin(frame/(3.14*40));
+			creal = .156 +2 * Math.cos(frame/(3.14*20));
+
+		}
+
+		for(x = 0; x < 9; x++){
+			color = (31*x).toString(16);
+			if(color.length == 1) color = '0' + color;
+			pallete[x] = '#' + color +color + 'ff';
+			pallete[x + 8] = '#00ff' + color;
+			pallete[17 + x] = '#' + color + '0000'
+		}
+		a = setInterval(julia, 100)
+	</script>
+</body>
+</html>
