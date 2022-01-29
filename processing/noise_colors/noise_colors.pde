@@ -13,7 +13,7 @@ void draw() {
     while(y < height) {
       float co = 255 * noise(x/500, y/500, z);
       fill(co, 255, 255);
-      ellipse(20 + x, 20 + y,32, 32);
+      ellipse(20 + x, 20 + y,64, 64);
       y = y + 40;
     }    
     
